@@ -13,7 +13,11 @@ let LandingPageAds = new Schema({
         }
     }],
     created_at: { type: Number },
-    interval: { type: Number }
+    interval: { type: Number },
+    position: { type: String },
+    category: { type: String },
+    enable: { type: String },
+    id: { type: String }
 });
 
 module.exports = mongoose.model('LandingPageAds', LandingPageAds);

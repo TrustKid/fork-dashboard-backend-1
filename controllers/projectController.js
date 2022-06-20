@@ -17,9 +17,18 @@ exports.landingPageAds = catchAsyncError(async (req, res, next) => {
     const responses = await Promise.all(promises);
     const imagesLink = [];
     responses.map(({ public_id, secure_url }) => imagesLink.push({ public_id: public_id, url: secure_url }));
+    req.body.adsGallery = imagesLink
+
+
+    // const ads = await LandingPageAds.create(req.body);
+    // res.status(200).json({
+    //     success: true,
+    //     ads
+    // })
 
     await LandingPageAds.findOneAndUpdate(
-        { "_id": '62af04ebb894488c7cbb7236' },
+        // { "_id": '62af04ebb894488c7cbb7236' },
+        { "_id": req.body.id },
         { "$push": { "adsGallery": imagesLink } },
     ).exec((err, result) => {
         if (err) {
@@ -62,10 +71,13 @@ exports.removeLandingPageAds = catchAsyncError(async (req, res, next) => {
 })
 
 exports.interval = catchAsyncError(async (req, res, next) => {
-    const { id, interval, adsGallery } = req.body;
+    const { id, interval, adsGallery, position, category, enable } = req.body;
     const newData = {
         interval: Number(interval),
-        adsGallery: adsGallery
+        adsGallery: adsGallery,
+        position,
+        category,
+        enable,
     }
 
     const intervalStatus = await LandingPageAds.findByIdAndUpdate({ _id: id }, newData, {
