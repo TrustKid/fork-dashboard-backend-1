@@ -10,6 +10,10 @@ let LandingPageAds = new Schema({
         url: {
             type: String,
             required: true
+        },
+        adLink: {
+            type: String,
+            required: true
         }
     }],
     created_at: { type: Number },
@@ -17,7 +21,19 @@ let LandingPageAds = new Schema({
     position: { type: String },
     category: { type: String },
     enable: { type: String },
-    id: { type: String }
+    id: { type: String },
+    linkset: [
+        {
+            id: {
+                type: Number,
+                required: true
+            },
+            link: {
+                type: String,
+                required: true
+            },
+        }
+    ]
 });
 
 module.exports = mongoose.model('LandingPageAds', LandingPageAds);

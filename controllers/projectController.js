@@ -5,6 +5,7 @@ const cloudinary = require('cloudinary');
 const catchAsyncError = require('../utils/catchAsyncError');
 
 exports.landingPageAds = catchAsyncError(async (req, res, next) => {
+    const { adsGallery, linkset } = req.body
     let promises = [];
     req.body.adsGallery.forEach(async (image) => {
         promises.push(
@@ -17,9 +18,13 @@ exports.landingPageAds = catchAsyncError(async (req, res, next) => {
     const responses = await Promise.all(promises);
     const imagesLink = [];
     responses.map(({ public_id, secure_url }) => imagesLink.push({ public_id: public_id, url: secure_url }));
+    
+
+    for (let index = 0; index < imagesLink.length; index++) {
+        imagesLink[index].adLink = linkset[index].link;
+    }
+    
     req.body.adsGallery = imagesLink
-
-
     // const ads = await LandingPageAds.create(req.body);
     // res.status(200).json({
     //     success: true,
@@ -27,7 +32,6 @@ exports.landingPageAds = catchAsyncError(async (req, res, next) => {
     // })
 
     await LandingPageAds.findOneAndUpdate(
-        // { "_id": '62af04ebb894488c7cbb7236' },
         { "_id": req.body.id },
         { "$push": { "adsGallery": imagesLink } },
     ).exec((err, result) => {
