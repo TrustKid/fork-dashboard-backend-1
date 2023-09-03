@@ -1,9 +1,11 @@
 // const Moralis = require("moralis/node");
 const DATABASE_NAME = "forkdashboard";
 // const CONNECTION_URL = "mongodb://localhost:27017/"+DATABASE_NAME;
-const CONNECTION_URL = "mongodb+srv://forkauth:VqhPVVQ43qXAd0zq@fork.feop0.mongodb.net/forkdashboard";
+
+const CONNECTION_URL = "mongodb+srv://leo12345:leo12345@cluster0.qu4ls.mongodb.net/forkdashboard";
 const cloudinary = require('cloudinary');
 require('dotenv').config()
+// leo12345
 
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 // const uri = "mongodb+srv://forkauth:<password>@fork.feop0.mongodb.net/?retryWrites=true&w=majority";
