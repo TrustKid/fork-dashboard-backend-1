@@ -6,8 +6,13 @@ const productController = require('../../controllers/projectController');
 const userController = require('../../controllers/userController');
 const categoryController = require('../../controllers/categoryController');
 const whitelistController = require('../../controllers/whitelistController');
-
-router.get('/', productController.getProject)
+function customMiddleware(req, res, next) {
+    // Your custom middleware logic here
+    console.log('Custom middleware for / route executed');
+    next();
+}
+// [customMiddleware],
+router.get('/',  productController.getProject)
 
 router.post('/forksave', productController.saveProject);
 
