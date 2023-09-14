@@ -89,6 +89,5 @@ router.post('/interval', productController.interval);
 // Token Information
 router.get('/getTokenInformation', tokenInfoController.getTokenInfo);
 router.post('/insertTokenInformation', tokenInfoController.insertTokenInfo);
-router.post('/updateTokenInformation', tokenInfoController.updateTokenInfo);
 
 module.exports = router;
