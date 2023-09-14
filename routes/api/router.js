@@ -6,13 +6,14 @@ const productController = require('../../controllers/projectController');
 const userController = require('../../controllers/userController');
 const categoryController = require('../../controllers/categoryController');
 const whitelistController = require('../../controllers/whitelistController');
+const tokenInfoController = require('../../controllers/tokenInfoController');
 function customMiddleware(req, res, next) {
     // Your custom middleware logic here
     console.log('Custom middleware for / route executed');
     next();
 }
 // [customMiddleware],
-router.get('/',  productController.getProject)
+router.get('/', productController.getProject)
 
 router.post('/forksave', productController.saveProject);
 
@@ -84,5 +85,10 @@ router.post('/landingPageads', productController.landingPageAds);
 router.get('/getLandingPageAds', productController.getLandingPageAds);
 router.post('/removeLandingAds', productController.removeLandingPageAds);
 router.post('/interval', productController.interval);
+
+// Token Information
+router.get('/getTokenInformation', tokenInfoController.getTokenInfo);
+router.post('/insertTokenInformation', tokenInfoController.insertTokenInfo);
+router.post('/updateTokenInformation', tokenInfoController.updateTokenInfo);
 
 module.exports = router;
