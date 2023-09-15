@@ -26,7 +26,10 @@ let ProjectSchema = new Schema({
     fork: { type: String, require: false },
     watchlist: { type: Boolean },
     created_at: { type: Number },
-    launchDateSearch: { type: String }
+    launchDateSearch: { type: String },
+    startDate: { type: String },
+    endDate: { type: String },
+    type: { type: String },
 });
 
 module.exports = mongoose.model('project', ProjectSchema);
