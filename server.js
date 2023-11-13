@@ -4,7 +4,6 @@ const DATABASE_NAME = "forkdashboard";
 const CONNECTION_URL = "mongodb+srv://leo12345:leo12345@cluster0.qu4ls.mongodb.net/forkdashboard";
 const cloudinary = require('cloudinary');
 require('dotenv').config()
-const hostName = '127.0.0.1'
 // leo12345
 
 const Moralis = require("moralis").default;
@@ -40,7 +39,7 @@ app.use(bodyParser.json({
   limit: '50mb'
 }))
 app.use(fileUpload());
-const PORT = process.env?.PORT || 5000;
+const PORT = 5000;
 app.use('/', router)
 GLOBAL_API_KEY_INDEX = 0;
 app.listen(PORT, () => {

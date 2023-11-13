@@ -1,5 +1,6 @@
 const Fork = require('../models/forkModel');
 const Network = require('../models/networkModel');
+const Project = require('../models/projectModel');
 exports.getCategory = function (req, res) {
     let data = req.body
     
@@ -40,8 +41,7 @@ exports.deleteFork = function (req, res){
 
 
 exports.addNetwork = function (req, res) {
-    // console.log(req.body.data)
-    let network = new Network({network:req.body.data})
+    let network = new Network(req.body.data)
     network.created_at = new Date()/1000
     // console.log(data)
     network.save(function(err, result){
@@ -50,12 +50,29 @@ exports.addNetwork = function (req, res) {
     })
 };
 
-exports.updateNetwork = function (req, res){
-    Network.updateOne({_id:req.body._id},req.body).exec((err, result)=>{
-        if(err) return next(err)
-        res.send(req.body)
-    })
- }
+exports.updateNetwork = async function (req, res) {
+    try {
+        // Update the Network document
+        const networkUpdateResult = await Network.updateOne({ _id: req.body._id }, req.body).exec();
+
+        if (networkUpdateResult.nModified === 0) {
+            return res.status(404).json({ error: 'Network not found' });
+        }
+
+        // Update related Project documents
+        await Project.updateMany(
+            { network: req.body.previousNetwork }, 
+            { $set: { network: req.body.network } }
+            )
+
+        res.send(req.body);
+    } catch (err) {
+        // Handle any errors here and send an appropriate error response
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 
 exports.deleteNetwork = function (req, res){
     Network.deleteOne({_id:req.body.id}).exec((err, result)=>{

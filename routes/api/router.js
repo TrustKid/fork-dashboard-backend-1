@@ -9,7 +9,6 @@ const whitelistController = require('../../controllers/whitelistController');
 const tokenInfoController = require('../../controllers/tokenInfoController');
 function customMiddleware(req, res, next) {
     // Your custom middleware logic here
-    console.log('Custom middleware for / route executed');
     next();
 }
 // [customMiddleware],
